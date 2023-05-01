@@ -30,29 +30,19 @@
                   </v-card-title>
 
                   <v-card-text>
-                    <v-row><v-col cols="4"><v-text-field v-model="taxon.name" name="name" label="Нэр" id="id" dense
-                          color="orange darken-3" outlined hint="Барааны дэлгэрэнгүй нэр"></v-text-field></v-col><v-col
-                        cols="4"><v-text-field name="name" v-model="taxon.taxonLinks" label="Ангилал"
-                          color="orange darken-3" id="id" dense hint="Taxon category"
-                          outlined></v-text-field></v-col></v-row><v-row class="mt-n6"><v-col cols="3"><v-text-field
-                          v-model="taxon.price" name="name" label="Үнэ" color="orange darken-3" id="id" dense
-                          outlined></v-text-field></v-col>
-                      <v-col cols="3"><v-text-field v-model="taxon.sellPrice" name="name" label="Худалдах Үнэ"
-                          color="orange darken-3" id="id" dense outlined></v-text-field></v-col><v-col
-                        cols="3"><v-text-field v-model="taxon.totalStock" name="name" label="Тоо ширхэг"
-                          color="orange darken-3" id="id" dense outlined></v-text-field></v-col>
+                    <v-row class="d-flex"><v-col cols="4"><v-text-field class="mt-3" v-model="taxon.name" name="name"
+                          label="Төрлийн Нэр" color="orange darken-3" id="id" dense outlined>
+                        </v-text-field>
+                      </v-col>
+                      <v-col cols="4">
+                        <v-text-field class="mt-3" v-model="taxon.store" name="name" label="Slug" color="orange darken-3"
+                          id="id" dense outlined></v-text-field>
+                      </v-col>
+                      <v-col cols="4">
+                        <v-switch v-model="taxon.active" color="orange" :label="taxon.active ? 'Идэвхитэй' : 'Идэвхгүй'"
+                          dense outlined></v-switch>
+                      </v-col>
                     </v-row>
-                    <v-row class="mt-n6">
-                      <v-col cols="3"><v-file-input show-size dense counter multiple
-                          label="Зураг оруулах"></v-file-input></v-col><v-col cols="6">
-                        <v-text-field name="name" v-model="taxon?.thumbnail[0]" label="Зурагны линк"
-                          color="orange darken-3" hint="https://examplewebsite.mn/Image.png" id="id" dense
-                          outlined></v-text-field> </v-col></v-row>
-
-                    <v-row><v-col cols="12"><v-card elevation="0">
-                          <p>Дэлгэрэнгүй мэдээлэл</p>
-                          <VueEditor v-model="taxon.description" />
-                        </v-card></v-col></v-row>
                   </v-card-text>
 
                   <v-card-actions>
@@ -75,16 +65,6 @@
               'items-per-page-text': 'Нэг нүүрэн дэх мөрийн тоо',
             }" :headers="headers" :items="taxons.rows" :search="search">
             {{ item }}
-            <!-- <template v-slot:[`item._id`]="{ item }">
-              <v-btn
-                class="text-subtitle-2"
-                @click="selectTaxon(item._id)"
-                text
-                small
-                >{{ item._id }}<v-icon small>mdi-open-in-new</v-icon></v-btn
-              >
-            </template> -->
-
             <template v-slot:[`item.price`]="{ item }">
               {{ formatPrice(item.price) }}
             </template>
@@ -120,7 +100,7 @@ export default {
       loading: true,
       errorSnack: false,
       addTaxon: false,
-      taxon: { thumbnail: [] },
+      taxon: {},
       taxons: [],
       search: "",
       headers: [
@@ -130,29 +110,25 @@ export default {
       ],
     };
   },
-  // methods: {
-  //   selectTaxon(taxonId) {
-  //     this.$router.push({ name: "taxons-id", params: { id: taxonId } });
-  //   },
-  //   formatPrice(value) {
-  //     let val = (value / 1).toFixed(0).replace(".");
-  //     return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "₮";
-  //   },
-  //   async submitAdd() {
-  //     if (this.taxon != { images: [] }) {
-  //       let response = await this.$axios.post("/taxon/", this.taxon);
-  //       if (response.status == 200) {
-  //         this.success = true;
-  //         this.addTaxon = false;
-  //         this.taxon = { images: [] };
-  //       } else {
-  //         console.log("boldgue boro");
-  //       }
-  //     } else {
-  //       this.errorSnack = true;
-  //     }
-  //   },
-  // },
+  methods: {
+    selectTaxon(taxonId) {
+      this.$router.push({ name: "taxons-id", params: { id: taxonId } });
+    },
+    formatPrice(value) {
+      let val = (value / 1).toFixed(0).replace(".");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "₮";
+    },
+    async submitAdd() {
+      let response = await this.$axios.post("/v1/taxon/create", this.taxon);
+      if (response.status == 200) {
+        this.success = true;
+        this.addTaxon = false;
+        this.taxon = {};
+      } else {
+        this.errorSnack = true;
+      }
+    },
+  },
   async fetch() {
     let response = await this.$axios.get("/v1/taxons");
     if (response.status == 200) {
