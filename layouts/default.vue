@@ -102,6 +102,7 @@ export default {
           action: "mdi-cart",
 
           items: [
+            { title: "Category (taxon)", link:"/taxons" },
             { title: "All products", link: "/products" },
             { title: "Product Listing" },
             { title: "Elastic Products" },
@@ -112,7 +113,6 @@ export default {
             { title: "Price update" },
             { title: "Variants" },
             { title: "Stock" },
-            { title: "Category (taxon)" },
           ],
           title: "Бараа",
         },

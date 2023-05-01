@@ -8,13 +8,28 @@ export default {
     htmlAttrs: {
       lang: "en",
     },
-    meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: "" },
-      { name: "format-detection", content: "telephone=no" },
+    meta: [{
+        charset: "utf-8"
+      },
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1"
+      },
+      {
+        hid: "description",
+        name: "description",
+        content: ""
+      },
+      {
+        name: "format-detection",
+        content: "telephone=no"
+      },
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    link: [{
+      rel: "icon",
+      type: "image/x-icon",
+      href: "/favicon.ico"
+    }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -51,15 +66,22 @@ export default {
             method: "post",
             propertyName: "token",
           },
-          logout: { url: "/auth/logout", method: "get" },
-          user: { url: "/auth/me", method: "post", propertyName: "user" },
+          logout: {
+            url: "/auth/logout",
+            method: "get"
+          },
+          user: {
+            url: "/auth/me",
+            method: "post",
+            propertyName: "user"
+          },
         },
       },
     },
   },
 
   axios: {
-    baseURL: "https://8e95-103-80-211-28.ngrok-free.app/api/",
+    baseURL: "http://192.168.88.245:4004/api/",
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

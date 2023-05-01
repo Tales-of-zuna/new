@@ -1,22 +1,7 @@
 <template>
   <v-container grid-list-xs>
-    <!-- {{ products.count  }}
-    {{ products.rows[0]  }} -->
-
-    <v-row><v-col cols="12">
-
-
-
-
-
-
-      </v-col></v-row>
-
-
-
-
-
-    <v-row><v-col cols="12"><v-snackbar v-model="success">
+    <v-row>
+      <v-col cols="12"> <v-snackbar v-model="success">
           Амжилттай нэмэгдлээ <v-icon>mdi-emoticon-cool</v-icon>
           <template v-slot:action="{ attrs }">
             <v-btn dark text v-bind="attrs" @click="success = false">
@@ -30,44 +15,43 @@
             </v-btn>
           </template> </v-snackbar><v-card>
           <v-card-title primary-title class="d-flex justify-space-between">
-            Бүтээгдэхүүний жагсаалт
+            Төрлийн жагсаалт
             <div class="d-flex">
-              <v-dialog v-model="addProduct" width="1000">
+              <v-dialog v-model="addTaxon" width="1000">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn color="green " dark small v-bind="attrs" v-on="on">Бүтээгдэхүүн үүсгэх <v-icon
+                  <v-btn color="green " dark small v-bind="attrs" v-on="on">Төрөл нэмэх <v-icon
                       small>mdi-plus</v-icon></v-btn>
                 </template>
                 <v-card>
                   <v-card-title primary-title class="d-flex justify-space-between">
-                    Бараа нэмэх
-                    <v-btn @click="addProduct = false" icon><v-icon>mdi-close</v-icon>
+                    Төрөл нэмэх
+                    <v-btn @click="addTaxon = false" icon><v-icon>mdi-close</v-icon>
                     </v-btn>
                   </v-card-title>
-                  <v-card-subtitle>Барааны загваруудыг тусд нь оруулна</v-card-subtitle>
 
                   <v-card-text>
-                    <v-row><v-col cols="4"><v-text-field v-model="product.name" name="name" label="Нэр" id="id" dense
+                    <v-row><v-col cols="4"><v-text-field v-model="taxon.name" name="name" label="Нэр" id="id" dense
                           color="orange darken-3" outlined hint="Барааны дэлгэрэнгүй нэр"></v-text-field></v-col><v-col
-                        cols="4"><v-text-field name="name" v-model="product.taxonLinks" label="Ангилал"
-                          color="orange darken-3" id="id" dense hint="Product category"
+                        cols="4"><v-text-field name="name" v-model="taxon.taxonLinks" label="Ангилал"
+                          color="orange darken-3" id="id" dense hint="Taxon category"
                           outlined></v-text-field></v-col></v-row><v-row class="mt-n6"><v-col cols="3"><v-text-field
-                          v-model="product.price" name="name" label="Үнэ" color="orange darken-3" id="id" dense
+                          v-model="taxon.price" name="name" label="Үнэ" color="orange darken-3" id="id" dense
                           outlined></v-text-field></v-col>
-                      <v-col cols="3"><v-text-field v-model="product.sellPrice" name="name" label="Худалдах Үнэ"
+                      <v-col cols="3"><v-text-field v-model="taxon.sellPrice" name="name" label="Худалдах Үнэ"
                           color="orange darken-3" id="id" dense outlined></v-text-field></v-col><v-col
-                        cols="3"><v-text-field v-model="product.totalStock" name="name" label="Тоо ширхэг"
+                        cols="3"><v-text-field v-model="taxon.totalStock" name="name" label="Тоо ширхэг"
                           color="orange darken-3" id="id" dense outlined></v-text-field></v-col>
                     </v-row>
                     <v-row class="mt-n6">
                       <v-col cols="3"><v-file-input show-size dense counter multiple
                           label="Зураг оруулах"></v-file-input></v-col><v-col cols="6">
-                        <v-text-field name="name" v-model="product?.thumbnail[0]" label="Зурагны линк"
+                        <v-text-field name="name" v-model="taxon?.thumbnail[0]" label="Зурагны линк"
                           color="orange darken-3" hint="https://examplewebsite.mn/Image.png" id="id" dense
                           outlined></v-text-field> </v-col></v-row>
 
                     <v-row><v-col cols="12"><v-card elevation="0">
                           <p>Дэлгэрэнгүй мэдээлэл</p>
-                          <VueEditor v-model="product.description" />
+                          <VueEditor v-model="taxon.description" />
                         </v-card></v-col></v-row>
                   </v-card-text>
 
@@ -82,19 +66,19 @@
               </v-dialog>
             </div>
           </v-card-title>
-          <v-card-subtitle>Нийт: {{ products.count }}</v-card-subtitle>
+          <v-card-subtitle>Нийт: {{ taxons.count }}</v-card-subtitle>
           <v-card-text>
             <v-text-field v-model="search" append-icon="mdi-magnify" label="Хайх" single-line :loading="loading"
               loading-text="Уншиж байна... Түр хүлээнэ үү" hide-details color="grey darken-3"></v-text-field>
           </v-card-text>
           <v-data-table show-select :footer-props="{
               'items-per-page-text': 'Нэг нүүрэн дэх мөрийн тоо',
-            }" :headers="headers" :items="products.rows" :search="search">
+            }" :headers="headers" :items="taxons.rows" :search="search">
             {{ item }}
             <!-- <template v-slot:[`item._id`]="{ item }">
               <v-btn
                 class="text-subtitle-2"
-                @click="selectProduct(item._id)"
+                @click="selectTaxon(item._id)"
                 text
                 small
                 >{{ item._id }}<v-icon small>mdi-open-in-new</v-icon></v-btn
@@ -135,54 +119,44 @@ export default {
       success: false,
       loading: true,
       errorSnack: false,
-      addProduct: false,
-      product: { thumbnail: [] },
-      products: [],
+      addTaxon: false,
+      taxon: { thumbnail: [] },
+      taxons: [],
       search: "",
       headers: [
-        { text: "Зураг ", align: "start", value: "thumbnail[0]" },
-        { text: "SKU", value: "sku" },
         { text: "Slug", value: "slug" },
         { text: "Нэр ", value: "name" },
-        { text: "Үлдэгдэл", value: "totalStock" },
-        { text: "Төрөл (taxons)", value: "taxonLinks" },
-        { text: "Үнэ", value: "price" },
-        { text: "Худалдах Үнэ", value: "sellPrice" },
-        { text: "Дэлгүүрт байршуулсан эсэх", value: "available" },
-        { text: "Зарж эхлэх огноо", value: "availableOn" },
+        { text: "Идэвхитэй эсэх", value: "active" },
       ],
     };
   },
-  methods: {
-    selectProduct(productId) {
-      this.$router.push({ name: "products-id", params: { id: productId } });
-    },
-    formatPrice(value) {
-      let val = (value / 1).toFixed(0).replace(".");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "₮";
-    },
-    async submitAdd() {
-      if (this.product != { images: [] }) {
-        let response = await this.$axios.post("/product/", this.product);
-        if (response.status == 200) {
-          this.success = true;
-          this.addProduct = false;
-          this.product = { images: [] };
-        } else {
-          console.log("boldgue boro");
-        }
-      } else {
-        this.errorSnack = true;
-      }
-    },
-  },
+  // methods: {
+  //   selectTaxon(taxonId) {
+  //     this.$router.push({ name: "taxons-id", params: { id: taxonId } });
+  //   },
+  //   formatPrice(value) {
+  //     let val = (value / 1).toFixed(0).replace(".");
+  //     return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "₮";
+  //   },
+  //   async submitAdd() {
+  //     if (this.taxon != { images: [] }) {
+  //       let response = await this.$axios.post("/taxon/", this.taxon);
+  //       if (response.status == 200) {
+  //         this.success = true;
+  //         this.addTaxon = false;
+  //         this.taxon = { images: [] };
+  //       } else {
+  //         console.log("boldgue boro");
+  //       }
+  //     } else {
+  //       this.errorSnack = true;
+  //     }
+  //   },
+  // },
   async fetch() {
-    let response = await this.$axios.post("/v1/products", {
-      store: "644f5ac6e7fb914f1426e0a1",
-      status: "all"
-    });
+    let response = await this.$axios.get("/v1/taxons");
     if (response.status == 200) {
-      this.products = response.data;
+      this.taxons = response.data;
       this.loading = false;
     }
   },

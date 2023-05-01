@@ -130,7 +130,6 @@ export default {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "₮";
     },
   },
-  middleware: "auth",
 };
 </script>
 
