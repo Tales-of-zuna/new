@@ -52,7 +52,7 @@ export default {
             propertyName: "token",
           },
           logout: { url: "/auth/logout", method: "get" },
-          user: { url: "/auth/me", method: "get", propertyName: "user" },
+          user: { url: "/auth/me", method: "post", propertyName: "user" },
         },
       },
     },
