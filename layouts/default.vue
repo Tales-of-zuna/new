@@ -3,7 +3,7 @@
     <v-navigation-drawer :mini-variant="drawer" clipped fixed dark app>
       <v-list nav dense>
         <v-list-group
-          color="orange"
+          color="teal"
           v-for="item in items"
           :key="item.title"
           v-model="item.active"
@@ -34,7 +34,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title class="font-weight-bold"
         ><v-btn class="" to="/" text>
-          <v-icon color="orange darken-3">mdi-gitlab</v-icon> Xiaomi.MN</v-btn
+          <v-icon color="orange darken-3">mdi-nuke</v-icon> Boom.MN</v-btn
         ></v-toolbar-title
       >
       <v-spacer />
@@ -102,7 +102,7 @@ export default {
           action: "mdi-cart",
 
           items: [
-            { title: "Category (taxon)", link:"/taxons" },
+            { title: "Category (taxon)", link: "/taxons" },
             { title: "All products", link: "/products" },
             { title: "Product Listing" },
             { title: "Elastic Products" },
