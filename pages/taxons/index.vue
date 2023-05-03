@@ -181,6 +181,7 @@ export default {
       errorSnack: false,
       addTaxon: false,
       taxon: {},
+      taxon: {},
       taxons: [],
       search: "",
       headers: [
