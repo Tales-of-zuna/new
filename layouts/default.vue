@@ -38,6 +38,8 @@
         ></v-toolbar-title
       >
       <v-spacer />
+      <v-btn text> {{ $auth.user.store }}</v-btn>
+
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
