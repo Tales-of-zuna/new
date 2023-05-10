@@ -42,35 +42,146 @@
                   >
 
                   <v-card-text>
-                    <v-row><v-col cols="4">
-                        <v-text-field v-model="product.name" label="Нэр" id="id" dense color="orange darken-3" outlined
-                          hint="Барааны дэлгэрэнгүй нэр"></v-text-field>
-                      </v-col><v-col cols="4"><v-text-field v-model="product.sku" name="SKU" label="SKU"
-                          color="orange darken-3" id="id" dense hint="Дугаар" outlined></v-text-field></v-col>
+                    <v-row
+                      ><v-col cols="4">
+                        <v-text-field
+                          hide-details
+                          v-model="product.name"
+                          label="Нэр"
+                          id="id"
+                          dense
+                          color="orange darken-3"
+                          outlined
+                          hint="Барааны дэлгэрэнгүй нэр"
+                        ></v-text-field> </v-col
+                      ><v-col cols="4"
+                        ><v-text-field
+                          hide-details
+                          v-model="product.sku"
+                          name="SKU"
+                          label="SKU"
+                          color="orange darken-3"
+                          id="id"
+                          dense
+                          hint="Дугаар"
+                          outlined
+                        ></v-text-field
+                      ></v-col>
                       <v-col cols="4">
-                        <v-select name="type" v-model="product.type" :items="items" label="Бүтээгдэхүүний төрөл"
-                          item-text="name" item-value="key" single-line color="orange darken-3" id="id" dense outlined
-                          return-object></v-select>
+                        <v-select
+                          hide-details
+                          name="type"
+                          v-model="product.type"
+                          :items="items"
+                          label="Бүтээгдэхүүний төрөл"
+                          item-text="name"
+                          item-value="key"
+                          single-line
+                          color="orange darken-3"
+                          id="id"
+                          dense
+                          outlined
+                          return-object
+                        ></v-select>
+                      </v-col> </v-row
+                    ><v-row
+                      ><v-col cols="4"
+                        ><v-text-field
+                          hide-details
+                          v-model="product.brand"
+                          name="brand"
+                          label="Бренд"
+                          color="orange darken-3"
+                          id="id"
+                          dense
+                          outlined
+                        ></v-text-field
+                      ></v-col>
+                      <v-col cols="4">
+                        <v-select
+                          name="taxons"
+                          hide-details
+                          v-model="product.taxons"
+                          :items="taxs"
+                          item-text="name"
+                          item-value="_id"
+                          multiple
+                          label="Ангилал"
+                          color="orange darken-3"
+                          id="id"
+                          dense
+                          outlined
+                        ></v-select>
                       </v-col>
-                    </v-row><v-row><v-col cols="4"><v-text-field v-model="product.brand" name="brand" label="Бренд"
-                          color="orange darken-3" id="id" dense outlined></v-text-field></v-col>
                       <v-col cols="4">
-                        <v-select name="taxons" v-model="product.taxons" :items="taxs" item-text="name" item-value="_id"
-                          multiple label="Ангилал" color="orange darken-3" id="id" dense outlined></v-select>
-                      </v-col>
-                      <v-col cols="4">
-                        <v-select name="opttypes" v-model="product.optiontypes" :items="types" item-text="name"
-                          item-value="slug" multiple label="Varient төрөл" color="orange darken-3" id="id" dense outlined>
+                        <v-select
+                          name="opttypes"
+                          hide-details
+                          v-model="product.optiontypes"
+                          :items="types"
+                          item-text="name"
+                          item-value="slug"
+                          multiple
+                          label="Varient төрөл"
+                          color="orange darken-3"
+                          id="id"
+                          dense
+                          outlined
+                        >
                         </v-select>
                       </v-col>
                     </v-row>
-                    <v-row><v-col cols="4"><v-text-field v-model="product.price" name="price" label="Үндсэн Үнэ"
-                          color="orange darken-3" id="id" dense outlined></v-text-field></v-col>
-                      <v-col cols="4"><v-text-field v-model="product.sellPrice" name="sellingprice" label="Зарах Үнэ"
-                          color="orange darken-3" id="id" dense outlined></v-text-field></v-col>
+                    <v-row
+                      ><v-col cols="4"
+                        ><v-text-field
+                          hide-details
+                          v-model="product.price"
+                          name="price"
+                          label="Үндсэн Үнэ"
+                          color="orange darken-3"
+                          id="id"
+                          dense
+                          outlined
+                        ></v-text-field
+                      ></v-col>
+                      <v-col cols="4"
+                        ><v-text-field
+                          hide-details
+                          v-model="product.sellPrice"
+                          name="sellingprice"
+                          label="Зарах Үнэ"
+                          color="orange darken-3"
+                          id="id"
+                          dense
+                          outlined
+                        ></v-text-field
+                      ></v-col>
                       <v-col cols="4">
-                        <label>Зарж эхлэх огноо</label>
-                        <input v-model="product.availableOn" name="date" id="id" type="datetime-local" />
+                        <v-menu
+                          v-model="menu4"
+                          :close-on-content-click="false"
+                          offset-y
+                          min-width="auto"
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                              hide-details
+                              outlined
+                              color="orange darken-3"
+                              dense
+                              v-model="product.availableOn"
+                              label="Худалдаж эхлэх хугацаа"
+                              prepend-icon="mdi-calendar"
+                              readonly
+                              v-bind="attrs"
+                              v-on="on"
+                            ></v-text-field>
+                          </template>
+                          <v-date-picker
+                            v-model="product.availableOn"
+                            @input="menu4 = false"
+                          ></v-date-picker>
+                        </v-menu>
                       </v-col>
                     </v-row>
                     <!-- <v-row class="mt-n6"><v-col cols="3"><v-text-field v-model="product.brand" name="name" label="Бренд"
@@ -81,10 +192,16 @@
                           hint="https://examplewebsite.mn/Image.png" id="id" dense outlined></v-text-field>
                       </v-col></v-row> -->
 
-                    <v-row><v-col cols="12"><v-card elevation="0">
-                          <p>Нэмэлт мэдээлэл</p>
-                          <v-textarea rows="2" cols="6" v-model="product.description" />
-                        </v-card></v-col></v-row>
+                    <v-row
+                      ><v-col cols="12">
+                        <v-textarea
+                          rows="3"
+                          outlined
+                          color="orange"
+                          label="Нэмэлт мэдээлэл"
+                          v-model="product.description"
+                        /> </v-col
+                    ></v-row>
                   </v-card-text>
 
                   <v-card-actions>
@@ -111,16 +228,22 @@
             ></v-text-field>
           </v-card-text>
 
-          <v-data-table :footer-props="{
-            'items-per-page-text': 'Нэг нүүрэн дэх мөрийн тоо',
-          }" :headers="headers" :items="products" :search="search" @dblclick="handleRowDoubleClick(_id)">
-
-            <!-- <template v-slot:item.sku="{ item }">
-              <v-btn class="text-subtitle-2" @click="selectProduct(item._id)" text small>{{ item._id }}<v-icon
-                  small>mdi-open-in-new</v-icon></v-btn>
-            </template> -->
+          <v-data-table
+            :footer-props="{
+              'items-per-page-text': 'Нэг нүүрэн дэх мөрийн тоо',
+            }"
+            :headers="headers"
+            :items="products"
+            :search="search"
+            @dblclick="handleRowDoubleClick(_id)"
+          >
             <template v-slot:item.thumbnails="{ item }">
-              <v-card height="25" width="25" class="ma-1" @click="selectProduct(item.slug)">
+              <v-card
+                height="25"
+                width="25"
+                class="ma-1"
+                @click="selectProduct(item.slug)"
+              >
                 <v-img :src="item.thumbnails[0]"></v-img>
               </v-card>
             </template>
@@ -154,6 +277,7 @@ export default {
     return {
       date: "",
       menu2: false,
+      menu4: false,
       viewProd: false,
       success: false,
       loading: true,
@@ -193,24 +317,28 @@ export default {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "₮";
     },
     async submitAdd() {
-      // if (this.product != { images: [] }) {
-      const { type, ...rest } = this.product
-      let response = await this.$axios.post("/v1/product/create", { type: type.key, ...rest, store: "644f5ac6e7fb914f1426e0a1" });
+      this.product.store = "644f5ac6e7fb914f1426e0a1";
+      let response = await this.$axios.post("/v1/product/create", this.product);
       if (response.status == 200) {
         this.success = true;
         this.addProduct = false;
+        this.product = {};
       } else {
         console.log("boldgue boro");
       }
-      // } else {
-      //   this.errorSnack = true;
-      // }
     },
   },
   async fetch() {
-    let response = await this.$axios.post("/v1/products", { status: "all", store: "644f5ac6e7fb914f1426e0a1" });
-    let responseTaxs = await this.$axios.post("/v1/taxons", { store: "644f5ac6e7fb914f1426e0a1" });
-    let responseType = await this.$axios.post("/v1/option-types/all", { store: "644f5ac6e7fb914f1426e0a1" })
+    let response = await this.$axios.post("/v1/products", {
+      status: "all",
+      store: "644f5ac6e7fb914f1426e0a1",
+    });
+    let responseTaxs = await this.$axios.post("/v1/taxons", {
+      store: "644f5ac6e7fb914f1426e0a1",
+    });
+    let responseType = await this.$axios.post("/v1/option-types/all", {
+      store: "644f5ac6e7fb914f1426e0a1",
+    });
     if (response.status == 200) {
       this.products = response.data.rows;
       this.loading = false;

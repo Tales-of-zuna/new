@@ -2,8 +2,14 @@
   <v-app dark>
     <v-navigation-drawer :mini-variant="drawer" clipped fixed dark app>
       <v-list nav dense>
-        <v-list-group color="teal" v-for="item in items" :key="item.title" v-model="item.active"
-          :prepend-icon="item.action" no-action>
+        <v-list-group
+          color="grey darken-3"
+          v-for="item in items"
+          :key="item.title"
+          v-model="item.active"
+          :prepend-icon="item.action"
+          no-action
+        >
           <template v-slot:activator>
             <v-list-item-content>
               <v-list-item-title>
@@ -12,7 +18,11 @@
             </v-list-item-content>
           </template>
 
-          <v-list-item :to="child.link" v-for="child in item.items" :key="child.title">
+          <v-list-item
+            :to="child.link"
+            v-for="child in item.items"
+            :key="child.title"
+          >
             <v-list-item-content>
               <v-list-item-title>{{ child.title }}</v-list-item-title>
             </v-list-item-content>
@@ -22,21 +32,33 @@
     </v-navigation-drawer>
     <v-app-bar color="white" elevation="2" clipped-left fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title class="font-weight-bold"><v-btn class="" to="/" text>
-          <v-icon color="orange darken-3">mdi-nuke</v-icon> Boom.MN</v-btn></v-toolbar-title>
+      <v-toolbar-title class="font-weight-bold"
+        ><v-btn class="" to="/" text>
+          <v-icon color="orange darken-3">mdi-nuke</v-icon> Boom.MN</v-btn
+        ></v-toolbar-title
+      >
       <v-spacer />
       <v-btn text> {{ $auth.user.store }}</v-btn>
 
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn v-if="$auth.user" color="grey darken-3" small dark v-bind="attrs" v-on="on">
+          <v-btn
+            v-if="$auth.user"
+            color="grey darken-3"
+            small
+            dark
+            v-bind="attrs"
+            v-on="on"
+          >
             <v-icon>mdi-account</v-icon> {{ $auth.user.firstname }}
           </v-btn>
         </template>
         <v-list>
           <v-list-item v-for="(item, index) in profile" :key="index">
-            <v-list-item-title>{{ item.title
-            }}<v-icon>{{ item.icon }}</v-icon></v-list-item-title>
+            <v-list-item-title
+              >{{ item.title
+              }}<v-icon>{{ item.icon }}</v-icon></v-list-item-title
+            >
           </v-list-item>
         </v-list>
       </v-menu>
@@ -87,7 +109,7 @@ export default {
             { title: "All products", link: "/products" },
             { title: "Product Listing" },
             { title: "Elastic Products" },
-            { title: "Add Product" },
+            { title: "Add Product", link: "/products/create" },
             { title: "Badges" },
             { title: "Reviews" },
             { title: "Mass import" },
