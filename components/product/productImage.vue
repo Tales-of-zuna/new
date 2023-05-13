@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card>
+    <v-card elevation="0">
       <v-card-title primary-title> Upload image </v-card-title>
       <v-card-subtitle>png , jpg , gif</v-card-subtitle>
 
@@ -22,16 +22,19 @@
       </v-card-text>
 
       <v-card-text>
-        <div v-if="imageUrl.url">
-          <v-img
-            contain
-            height="200"
-            width="200"
-            :src="'http://192.168.88.245:4004/api/v1/file/' + imageUrl.url"
-            ><div class="d-flex justify-end">
-              <v-btn color="success" icon><v-icon>mdi-close</v-icon></v-btn>
-            </div>
-          </v-img>
+        <div v-if="product.thumbnails">
+          <div v-for="image in product.thumbnails" :key="image">
+            {{ "http://192.168.88.245:4004/api/v1/file/" + image }}
+            <v-img
+              contain
+              height="200"
+              width="200"
+              :src="'http://192.168.88.245:4004/api/v1/file/' + image"
+              ><div class="d-flex justify-end">
+                <v-btn color="success" icon><v-icon>mdi-close</v-icon></v-btn>
+              </div>
+            </v-img>
+          </div>
         </div>
       </v-card-text>
     </v-card>
@@ -40,6 +43,11 @@
 
 <script>
 export default {
+  props: {
+    product: {
+      type: Object,
+    },
+  },
   data() {
     return {
       image: null,
@@ -63,6 +71,7 @@ export default {
       if (response.status == 200) {
         this.image = null;
         this.imageUrl = response.data;
+        this.product.thumbnails.push(this.imageUrl.url);
       }
     },
   },

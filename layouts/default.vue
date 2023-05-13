@@ -3,7 +3,7 @@
     <v-navigation-drawer :mini-variant="drawer" clipped fixed dark app>
       <v-list nav dense>
         <v-list-group
-          color="grey darken-3"
+          color="white"
           v-for="item in items"
           :key="item.title"
           v-model="item.active"
@@ -38,8 +38,8 @@
         ></v-toolbar-title
       >
       <v-spacer />
-      <v-btn text> {{ $auth.user.store }}</v-btn>
-
+      <!-- <v-btn text> {{ $auth.user.store }}</v-btn> -->
+      <v-btn small class="mr-2" color="orange darken-3" dark>Xiaomi </v-btn>
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn
@@ -50,7 +50,7 @@
             v-bind="attrs"
             v-on="on"
           >
-            <v-icon>mdi-account</v-icon> {{ $auth.user.firstname }}
+            <v-icon>mdi-account</v-icon> {{ $auth.user.email }}
           </v-btn>
         </template>
         <v-list>
@@ -111,7 +111,7 @@ export default {
             { title: "Elastic Products" },
             { title: "Add Product", link: "/products/create" },
             { title: "Badges" },
-            { title: "Reviews" },
+            { title: "Brands", link: "/brands" },
             { title: "Mass import" },
             { title: "Price update" },
             { title: "Variants" },

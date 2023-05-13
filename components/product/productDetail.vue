@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ $auth.user }}
     <v-card elevation="0">
       <v-card-text>
         <v-row
@@ -43,16 +42,19 @@
           </v-col> </v-row
         ><v-row
           ><v-col cols="4"
-            ><v-text-field
+            ><v-select
+              name="taxons"
               hide-details
               v-model="product.brand"
-              name="brand"
-              label="Бренд not now"
+              :items="brands"
+              item-text="name"
+              item-value="_id"
+              label="Бренд"
               color="orange darken-3"
               id="id"
               dense
               outlined
-            ></v-text-field
+            ></v-select
           ></v-col>
           <v-col cols="4">
             <v-select
@@ -78,7 +80,7 @@
               item-text="name"
               item-value="slug"
               multiple
-              label="Varient төрөл not now"
+              label="Varient төрөл"
               color="orange darken-3"
               dense
               outlined
@@ -112,6 +114,7 @@
               outlined
             ></v-text-field
           ></v-col>
+
           <v-col cols="4">
             <v-menu
               v-model="menu4"
@@ -148,18 +151,11 @@
               rows="3"
               outlined
               color="orange"
-              label="Нэмэлт мэдээлэл not now"
+              label="Нэмэлт мэдээлэл "
               v-model="product.description"
             /> </v-col
         ></v-row>
       </v-card-text>
-
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="orange" text @click="submitAdd(), (step = 2)">
-          Нэмэх
-        </v-btn>
-      </v-card-actions>
     </v-card>
   </div>
 </template>
@@ -172,29 +168,21 @@ export default {
   data() {
     return {
       date: "",
+      brand: null,
       menu4: false,
       taxs: [],
       types: [],
       items: ["digital", "product"],
     };
   },
-  methods: {
-    async submitAdd() {
-      this.product.store = "644f5ac6e7fb914f1426e0a1";
-      let response = await this.$axios.post("/v1/product/create", this.product);
-      if (response.status == 200) {
-        this.success = true;
-        this.addProduct = false;
-        this.product = {};
-      } else {
-        console.log("boldgue boro");
-      }
-    },
-  },
+  methods: {},
   async fetch() {
     let responseTaxs = await this.$axios.post("/v1/taxons", {
       store: "644f5ac6e7fb914f1426e0a1",
     });
+
+    let responseBrand = await this.$axios.post("/v1/brands");
+
     let responseType = await this.$axios.post("/v1/option-types/all", {
       store: "644f5ac6e7fb914f1426e0a1",
     });
@@ -203,6 +191,9 @@ export default {
     }
     if (responseType.status == 200) {
       this.types = responseType.data;
+    }
+    if (responseBrand.status == 200) {
+      this.brands = responseBrand.data.rows;
     }
   },
 };
