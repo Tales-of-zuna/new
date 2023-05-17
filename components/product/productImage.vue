@@ -12,24 +12,27 @@
           hide-details
           v-model="image"
           class="col-4"
-          color="orange darken-3"
+          color="teal darken-3"
           show-size
           truncate-length="15"
         ></v-file-input>
-        <v-btn dark @click="sendImage(image)"
+        <v-btn
+          dark
+          @click="sendImage(image), (loading = true)"
+          :loading="loading"
           ><v-icon>mdi-image-plus</v-icon> Нэмэх</v-btn
         >
       </v-card-text>
 
       <v-card-text>
-        <div v-if="product.thumbnails">
+        <div v-if="product.thumbnails[0]">
           <div v-for="image in product.thumbnails" :key="image">
             {{ "http://192.168.88.245:4004/api/v1/file/" + image }}
             <v-img
               contain
               height="200"
               width="200"
-              :src="'http://192.168.88.245:4004/api/v1/file/' + image"
+              :src="$store.state.imageBaseUrl + image"
               ><div class="d-flex justify-end">
                 <v-btn color="success" icon><v-icon>mdi-close</v-icon></v-btn>
               </div>
@@ -50,6 +53,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       image: null,
       type: "productImages",
       imageUrl: "",

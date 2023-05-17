@@ -1,6 +1,5 @@
 <template>
   <v-container grid-list-xs>
-    {{ brands }}
     <v-card elevation="0">
       <v-card-title class="d-flex justify-space-between" primary-title>
         Бренд нэмэх
@@ -30,7 +29,7 @@
                 ref="file"
                 hide-details
                 v-model="image"
-                color="orange darken-3"
+                color="teal darken-3"
                 show-size
                 truncate-length="15"
               ></v-file-input>
@@ -42,7 +41,7 @@
               height="100"
               contain
               v-if="brand.image"
-              :src="'http://192.168.88.245:4004/api/v1/file/' + brand.image"
+              :src="$store.state.imageBaseUrl + brand.image"
             ></v-img>
 
             <v-divider></v-divider>
@@ -62,13 +61,13 @@
       </v-card-title>
       <v-card-text>
         <v-row>
-          <v-col v-for="brand in brands.rows" :key="brand.name" cols="1"
-            ><v-card v-if="(brand.active = true)"
+          <v-col v-for="brand in brands.rows" :key="brand.name" cols="2"
+            ><v-card hover v-if="(brand.active = true)"
               ><div class="px-1 pt-1">
                 <v-img
                   contain
                   height="100"
-                  :src="'http://192.168.88.245:4004/api/v1/file/' + brand.image"
+                  :src="$store.state.imageBaseUrl + brand.image"
                   ><div class="d-flex justify-space-between">
                     <div></div>
                     <v-btn @click="deleteBrand(brand)" color=" error" icon

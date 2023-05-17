@@ -9,7 +9,7 @@
             label="Variant name"
             id="id"
             dense
-            color="orange darken-3"
+            color="teal darken-3"
             outlined
           ></v-text-field>
         </v-col>
@@ -20,7 +20,7 @@
             :items="items"
             label="Variant төрөл"
             single-line
-            color="orange darken-3"
+            color="teal darken-3"
             dense
             outlined
             return-object
@@ -33,40 +33,38 @@
             label="Дэлгүүр"
             single-line
             readonly
-            color="orange darken-3"
+            color="teal darken-3"
             dense
             outlined
           ></v-text-field>
         </v-col> </v-row
       ><v-row
         ><v-col cols="4"
-          ><v-text-field
+          ><v-select
+            name="taxons"
             hide-details
             v-model="product.brand"
-            name="brand"
-            label="Бренд "
-            color="orange darken-3"
+            :items="brands"
+            item-text="name"
+            item-value="_id"
+            label="Бренд"
+            color="teal darken-3"
             id="id"
             dense
             outlined
+          ></v-select
+        ></v-col>
+        <v-col cols="4"
+          ><v-text-field
+            hide-details
+            outlined
+            color="teal darken-3"
+            dense
+            v-model="product.slug"
+            label="slug"
           ></v-text-field
         ></v-col>
-        {{ types }}
         <v-col cols="4">
-          <v-select
-            hide-details
-            v-model="product.options"
-            :items="types"
-            item-text="name"
-            item-value="slug"
-            multiple
-            label="Varient төрөл "
-            color="orange darken-3"
-            dense
-            outlined
-          >
-          </v-select> </v-col
-        ><v-col cols="4">
           <v-menu
             v-model="menu4"
             :close-on-content-click="false"
@@ -77,7 +75,7 @@
               <v-text-field
                 hide-details
                 outlined
-                color="orange darken-3"
+                color="teal darken-3"
                 dense
                 v-model="product.availableOn"
                 label="Худалдаж эхлэх хугацаа"
@@ -88,7 +86,7 @@
               ></v-text-field>
             </template>
             <v-date-picker
-              color="orange darken-3"
+              color="teal darken-3"
               v-model="product.availableOn"
               @input="menu4 = false"
             ></v-date-picker>
@@ -102,7 +100,7 @@
             v-model="product.price"
             name="price"
             label="Үндсэн Үнэ"
-            color="orange darken-3"
+            color="teal darken-3"
             id="id"
             dense
             type="number"
@@ -115,14 +113,33 @@
             v-model="product.sellPrice"
             name="sellingprice"
             label="Зарах Үнэ"
-            color="orange darken-3"
+            color="teal darken-3"
             id="id"
             dense
             outlined
           ></v-text-field
         ></v-col>
       </v-row>
+      <v-divider class="my-4"></v-divider>
+      <p class="text-h6">Сонголтын утгууд</p>
+      <v-row
+        ><v-col cols="2" v-for="item in options" :key="item"
+          ><v-select
+            hide-details
+            :items="brands"
+            item-text="name"
+            item-value="_id"
+            :label="item"
+            color="teal darken-3"
+            id="id"
+            dense
+            outlined
+          ></v-select
+        ></v-col>
+      </v-row>
     </v-card-text>
+    {{ options }}
+    {{ product }}
   </v-card>
 </template>
 
@@ -130,9 +147,11 @@
 export default {
   props: {
     product: { type: Object },
+    options: { type: Array },
   },
   data() {
     return {
+      id: 0,
       date: "",
       brand: null,
       menu4: false,
@@ -144,13 +163,13 @@ export default {
   methods: {},
   async fetch() {
     let responseTaxs = await this.$axios.post("/v1/taxons", {
-      store: "644f5ac6e7fb914f1426e0a1",
+      store: this.$auth.user.store,
     });
 
     let responseBrand = await this.$axios.post("/v1/brands");
 
     let responseType = await this.$axios.post("/v1/option-types/all", {
-      store: "644f5ac6e7fb914f1426e0a1",
+      store: this.$auth.user.store,
     });
     if (responseTaxs.status == 200) {
       this.taxs = responseTaxs.data;

@@ -6,7 +6,7 @@
           <v-card-title primary-title> Сайн уу, Zuna! 🎉</v-card-title>
           <v-card-subtitle>Энэ сарын цэвэр ашиг</v-card-subtitle>
           <v-card-text class="">
-            <p class="text-h5 font-weight-bold orange--text ma-0">$42.8k</p>
+            <p class="text-h5 font-weight-bold teal--text ma-0">$42.8k</p>
             <p class="">78% өсөлт 🚀</p> </v-card-text
           ><v-card-actions> </v-card-actions></v-card></v-col
       ><v-col cols="5"

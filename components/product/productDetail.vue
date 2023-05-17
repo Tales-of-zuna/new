@@ -10,7 +10,7 @@
               label="Нэр"
               id="id"
               dense
-              color="orange darken-3"
+              color="teal darken-3"
               outlined
               hint="Барааны дэлгэрэнгүй нэр"
             ></v-text-field>
@@ -22,7 +22,7 @@
               :items="items"
               label="Бүтээгдэхүүний төрөл"
               single-line
-              color="orange darken-3"
+              color="teal darken-3"
               dense
               outlined
               return-object
@@ -35,7 +35,7 @@
               label="Дэлгүүр"
               single-line
               readonly
-              color="orange darken-3"
+              color="teal darken-3"
               dense
               outlined
             ></v-text-field>
@@ -50,7 +50,7 @@
               item-text="name"
               item-value="_id"
               label="Бренд"
-              color="orange darken-3"
+              color="teal darken-3"
               id="id"
               dense
               outlined
@@ -66,7 +66,7 @@
               item-value="_id"
               multiple
               label="Ангилал"
-              color="orange darken-3"
+              color="teal darken-3"
               id="id"
               dense
               outlined
@@ -75,13 +75,13 @@
           <v-col cols="4">
             <v-select
               hide-details
-              v-model="product.optiontypes"
+              v-model="product.optionTypes"
               :items="types"
               item-text="name"
               item-value="slug"
               multiple
               label="Varient төрөл"
-              color="orange darken-3"
+              color="teal darken-3"
               dense
               outlined
             >
@@ -95,7 +95,7 @@
               v-model="product.price"
               name="price"
               label="Үндсэн Үнэ"
-              color="orange darken-3"
+              color="teal darken-3"
               id="id"
               dense
               type="number"
@@ -108,7 +108,7 @@
               v-model="product.sellPrice"
               name="sellingprice"
               label="Зарах Үнэ"
-              color="orange darken-3"
+              color="teal darken-3"
               id="id"
               dense
               outlined
@@ -126,7 +126,7 @@
                 <v-text-field
                   hide-details
                   outlined
-                  color="orange darken-3"
+                  color="teal darken-3"
                   dense
                   v-model="product.availableOn"
                   label="Худалдаж эхлэх хугацаа"
@@ -137,7 +137,7 @@
                 ></v-text-field>
               </template>
               <v-date-picker
-                color="orange darken-3"
+                color="teal darken-3"
                 v-model="product.availableOn"
                 @input="menu4 = false"
               ></v-date-picker>
@@ -150,13 +150,14 @@
             <v-textarea
               rows="3"
               outlined
-              color="orange"
+              color="teal"
               label="Нэмэлт мэдээлэл "
               v-model="product.description"
             /> </v-col
         ></v-row>
       </v-card-text>
     </v-card>
+    {{ $auth.user }}
   </div>
 </template>
 
@@ -178,13 +179,13 @@ export default {
   methods: {},
   async fetch() {
     let responseTaxs = await this.$axios.post("/v1/taxons", {
-      store: "644f5ac6e7fb914f1426e0a1",
+      store: this.$auth.user.store,
     });
 
     let responseBrand = await this.$axios.post("/v1/brands");
 
     let responseType = await this.$axios.post("/v1/option-types/all", {
-      store: "644f5ac6e7fb914f1426e0a1",
+      store: this.$auth.user.store,
     });
     if (responseTaxs.status == 200) {
       this.taxs = responseTaxs.data;

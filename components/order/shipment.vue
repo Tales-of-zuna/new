@@ -11,7 +11,7 @@
                   v-bind="attrs"
                   v-on="on"
                   solo
-                  color="orange"
+                  color="teal"
                   label="Search Variants using SKU"
                   append-icon="mdi-map-marker"
                   prepend-inner-icon="mdi-magnify"
@@ -27,7 +27,7 @@
                 </v-card-title>
                 <v-card-subtitle>
                   <v-text-field
-                    color="orange"
+                    color="teal"
                     class="mt-5"
                     solo
                     dense

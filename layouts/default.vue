@@ -34,12 +34,13 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title class="font-weight-bold"
         ><v-btn class="" to="/" text>
-          <v-icon color="orange darken-3">mdi-nuke</v-icon> Boom.MN</v-btn
+          <v-icon color="red">mdi-tailwind</v-icon>
+          Tailwind.MN</v-btn
         ></v-toolbar-title
       >
       <v-spacer />
       <!-- <v-btn text> {{ $auth.user.store }}</v-btn> -->
-      <v-btn small class="mr-2" color="orange darken-3" dark>Xiaomi </v-btn>
+      <v-btn small class="mr-2" color="teal darken-3" dark>Xiaomi </v-btn>
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn

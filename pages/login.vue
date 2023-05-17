@@ -2,8 +2,9 @@
   <v-sheet height="90vh" class="align-center d-flex justify-center">
     <v-row class="d-flex justify-center"
       ><v-col cols="3">
+        {{ $auth.user }}
         <v-card class="fill-height">
-          <v-tabs grow color="orange">
+          <v-tabs grow color="teal">
             <v-tab> Нэвтрэх </v-tab>
             <v-tab-item>
               <v-card-title primary-title class="grey--text text--darken-2"
@@ -67,7 +68,7 @@
               <v-card-text>
                 <v-text-field
                   outlined
-                  color="orange"
+                  color="teal"
                   label="Имэйл"
                   id="id"
                   prepend-inner-icon="mdi-email"
@@ -75,7 +76,7 @@
                 ></v-text-field>
                 <v-text-field
                   outlined
-                  color="orange"
+                  color="teal"
                   v-model="login.password"
                   prepend-inner-icon="mdi-lock"
                   :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -90,7 +91,7 @@
                 </div>
               </v-card-text>
               <v-card-actions>
-                <v-btn @click="userLogin()" block color="orange darken-1 " dark
+                <v-btn @click="userLogin()" block color="teal darken-1 " dark
                   >нэвтрэх</v-btn
                 ><v-snackbar dark v-model="successLogin">
                   Амжилттай нэвтэрлээ
@@ -191,7 +192,7 @@
                     ><v-text-field
                       outlined
                       dense
-                      color="orange"
+                      color="teal"
                       label="Овог"
                       id="id"
                       v-model="register.lastname"
@@ -200,7 +201,7 @@
                     ><v-text-field
                       outlined
                       dense
-                      color="orange"
+                      color="teal"
                       label="Нэр"
                       id="id"
                       v-model="register.firstname"
@@ -210,7 +211,7 @@
                 <v-text-field
                   outlined
                   dense
-                  color="orange"
+                  color="teal"
                   label="Имэйл"
                   id="id"
                   v-model="register.email"
@@ -218,14 +219,14 @@
                 <v-text-field
                   outlined
                   dense
-                  color="orange"
+                  color="teal"
                   label="Утасны дугаар"
                   id="id"
-                  v-model="register.mobile"
+                  v-model="register.phone"
                 ></v-text-field>
                 <v-text-field
                   outlined
-                  color="orange"
+                  color="teal"
                   dense
                   v-model="register.password"
                   :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -287,7 +288,7 @@ export default {
     return {
       show1: false,
       login: {},
-      register: {},
+      register: { store_name: "" },
       successSignUp: false,
       successLogin: false,
       errorSignUp: false,
@@ -307,8 +308,9 @@ export default {
       }
     },
     async userSignUp() {
-      let response = await this.$axios.post("/user/register", this.register);
-      if (response.status == 200) {
+      this.register.store_name = this.$store.state.store_name;
+      let response = await this.$axios.post("/auth/register", this.register);
+      if (response.status == 201) {
         this.successSignUp = true;
       } else {
         this.errorSignUp = true;

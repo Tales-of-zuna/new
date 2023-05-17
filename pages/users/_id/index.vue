@@ -18,7 +18,7 @@
               <v-btn
                 class="mt-4"
                 dark
-                :color="user.role == 'admin' ? 'orange' : 'teal'"
+                :color="user.role == 'admin' ? 'teal' : 'teal'"
                 ><v-icon>{{
                   user.role == "admin" ? "mdi-shield-crown" : "mdi-account"
                 }}</v-icon
@@ -36,21 +36,21 @@
                 <v-text-field
                   label="Нэр"
                   outlined
-                  color="orange"
+                  color="teal"
                   dense
                   v-model="user.firstname"
                 ></v-text-field
                 ><v-text-field
                   label="Имэйл"
                   outlined
-                  color="orange"
+                  color="teal"
                   dense
                   v-model="user.email"
                 ></v-text-field>
                 <v-text-field
                   label="Хаяг"
                   outlined
-                  color="orange"
+                  color="teal"
                   dense
                   v-model="user.address"
                 ></v-text-field></v-col
@@ -58,14 +58,14 @@
                 <v-text-field
                   label="Эцэг / Эхийн нэр"
                   outlined
-                  color="orange"
+                  color="teal"
                   v-model="user.lastname"
                   dense
                 ></v-text-field>
                 <v-text-field
                   label="Утасны дугаар"
                   outlined
-                  color="orange"
+                  color="teal"
                   dense
                   v-model="user.mobile"
                 ></v-text-field>
@@ -74,7 +74,7 @@
                   label="Үүрэг"
                   outlined
                   dense
-                  color="orange"
+                  color="teal"
                   v-model="user.role"
                 ></v-select> </v-col
             ></v-row>

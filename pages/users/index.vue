@@ -78,7 +78,7 @@
                         ><v-text-field
                           outlined
                           dense
-                          color="orange"
+                          color="teal"
                           label="Овог"
                           id="id"
                           v-model="register.lastname"
@@ -87,7 +87,7 @@
                         ><v-text-field
                           outlined
                           dense
-                          color="orange"
+                          color="teal"
                           label="Нэр"
                           id="id"
                           v-model="register.firstname"
@@ -97,7 +97,7 @@
                     <v-text-field
                       outlined
                       dense
-                      color="orange"
+                      color="teal"
                       label="Имэйл"
                       id="id"
                       v-model="register.email"
@@ -105,14 +105,14 @@
                     <v-text-field
                       outlined
                       dense
-                      color="orange"
+                      color="teal"
                       label="Утасны дугаар"
                       id="id"
                       v-model="register.mobile"
                     ></v-text-field>
                     <v-text-field
                       outlined
-                      color="orange"
+                      color="teal"
                       dense
                       v-model="register.password"
                       :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -207,10 +207,7 @@
               >
             </template>
             <template v-slot:[`item.role`]="{ item }">
-              <v-btn
-                dark
-                small
-                :color="item.role == 'admin' ? 'orange' : 'teal'"
+              <v-btn dark small :color="item.role == 'admin' ? 'teal' : 'teal'"
                 ><v-icon>{{
                   item.role == "admin" ? "mdi-shield-crown" : "mdi-account"
                 }}</v-icon

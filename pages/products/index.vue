@@ -67,10 +67,7 @@
                   height="30"
                   width="30"
                   contain
-                  :src="
-                    'http://192.168.88.245:4004/api/v1/file/' +
-                    item.thumbnails[0]
-                  "
+                  :src="$store.state.imageBaseUrl + item.thumbnails[0]"
                 ></v-img
               ></v-sheet>
             </template>
@@ -154,7 +151,7 @@ export default {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "₮";
     },
     async submitAdd() {
-      this.product.store = "644f5ac6e7fb914f1426e0a1";
+      this.product.store = this.$auth.user.store;
       let response = await this.$axios.post("/v1/product/create", this.product);
       if (response.status == 200) {
         this.success = true;
@@ -168,13 +165,13 @@ export default {
   async fetch() {
     let response = await this.$axios.post("/v1/products", {
       status: "all",
-      store: "644f5ac6e7fb914f1426e0a1",
+      store: this.$auth.user.store,
     });
     let responseTaxs = await this.$axios.post("/v1/taxons", {
-      store: "644f5ac6e7fb914f1426e0a1",
+      store: this.$auth.user.store,
     });
     let responseType = await this.$axios.post("/v1/option-types/all", {
-      store: "644f5ac6e7fb914f1426e0a1",
+      store: this.$auth.user.store,
     });
     if (response.status == 200) {
       this.products = response.data.rows;

@@ -19,12 +19,12 @@
               ><v-divider vertical inset></v-divider
               ><v-col class="" cols="3"
                 ><div class="d-flex align-center">
-                  <v-btn color="orange" dark fab class="mr-2"
+                  <v-btn color="teal" dark fab class="mr-2"
                     ><v-icon>mdi-credit-card-clock-outline</v-icon></v-btn
                   >
                   <div>
                     <p class="text-h6">--</p>
-                    <p class="ma-0 mt-n5 orange--text">ТӨЛБӨР ХҮЛЭЭГДЭЖ БУЙ</p>
+                    <p class="ma-0 mt-n5 teal--text">ТӨЛБӨР ХҮЛЭЭГДЭЖ БУЙ</p>
                   </div>
                 </div></v-col
               ><v-divider vertical inset></v-divider
